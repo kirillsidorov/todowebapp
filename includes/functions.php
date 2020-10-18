@@ -94,29 +94,31 @@
         
         while($row=mysqli_fetch_assoc($result)){
 
-            $value.= '<div class="container" style="margin-top:30px;">
+            $value.= '<div class="container border rounded gradient" style="padding-bottom: 10px; margin-bottom: 10px;">
+                    <div class="container border rounded" style="margin-top:30px;">
                         <div class="row bg-primary text-white">
-                            <div class="col-sm-10" id="Project'.$row['Id'].'">'.$row['Name'].'</div>
-                            <div class="col-sm-1">
-                            <button class="btn btn-success" id="btn_edit_project" data-id1='.$row['Id'].' data-toggle="modal" data-target="#EditProject"><span class="fa fa-edit"></button>
+                            <div class="col-10" id="Project'.$row['Id'].'">'.$row['Name'].'</div>
+                            <div class="col-1">
+                                <button class="btn btn-success" id="btn_edit_project" data-id1='.$row['Id'].' data-toggle="modal" data-target="#EditProject"><span class="fa fa-edit"></button>
                             </div>
-                            <div class="col-sm-1">
-                            <button class="btn btn-danger" id="btn_delete_project" data-id1='.$row['Id'].'><span class="fa fa-trash"></button>  
+                            <div class="col-1">
+                                <button class="btn btn-danger" id="btn_delete_project" data-id1='.$row['Id'].'><span class="fa fa-trash"></button>  
                             </div>     
                         </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Some task.." id="form-'.$row['Id'].'" data-id1='.$row['Id'].' required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" type="button" id="btn_add_task" data-id1='.$row['Id'].' >Add Task</button>
-                                    </div>
+                    </div>
+                    <div class="container" style="margin-top: 5px;margin-bottom:5px">
+                        <div class="row">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Some task.." id="form-'.$row['Id'].'" data-id1='.$row['Id'].' required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-success" type="button" id="btn_add_task" data-id1='.$row['Id'].' >Add Task</button>
                                 </div>
                             </div>
-                        </div>';
+                        </div>
+                    </div>';
             
             $value.= get_tasks_by_projectId($row['Id']);
+            $value.= '</div>';
         }
         $value.='</div>';
         echo json_encode(['status'=>'success','html'=>$value]);
@@ -128,9 +130,9 @@ function get_tasks_by_projectId($id){
     $sql = 'select * from `tasks` WHERE ProjectId = '.$id;
     $res = mysqli_query($con,$sql);
     while($row1=mysqli_fetch_assoc($res)){
-            $html.= '<div class="container" style="border-bottom: 1px; margin-top: 10px;">
+            $html.= '<div class="container border rounded bg-light" style="border-bottom: 1px; margin-top: 10px;">
                          <div class="row">
-                            <div class="col-sm-1" >
+                            <div class="col-1" >
                                 <div class="form-check-inline">
                                     <label class="form-check-label">';
                                     if($row1['CheckStatus'] == 0){
@@ -138,20 +140,20 @@ function get_tasks_by_projectId($id){
                                     </label>
                                 </div>
                              </div>
-                            <div class="col-sm-9" ><p class="text lineThrough">'.$row1['Content'].'</p></div>';
+                            <div class="col-9" ><p class="text lineThrough">'.$row1['Content'].'</p></div>';
                                     }else{
                                         $html.=    '<input type="checkbox" class="form-check-input" id="chb" job="in_progress" data-id='.$row1['Id'].' value="">
                                     </label>
                                 </div>
                              </div>
-                            <div class="col-sm-9" ><p class="text">'.$row1['Content'].'</p></div>';
+                            <div class="col-9" ><p class="text">'.$row1['Content'].'</p></div>';
                                     }
                                     
-                            $html.='<div class="col-sm-1" > 
+                            $html.='<div class="col-1" > 
                                 <button class="btn btn-success" id="btn_edit_task" data-id='.$row1['Id'].'><span class="fa fa-edit"></span></button>
                             </div>
-                            <div class="col-sm-1" >
-                                <button class="btn btn-danger" id="btn_delete_task" data-id='.$row1['Id'].'><span class="fa fa-trash"></span></button>
+                            <div class="col-1" >
+                                <button class="btn btn-danger" id="btn_delete_task" data-id='.$row1['Id'].' data-toggle="modal" data-target="#delete_task"><span class="fa fa-trash"></span></button>
                             </div>
                         </div>
                     </div>';

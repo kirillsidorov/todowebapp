@@ -3,7 +3,7 @@ $(document).ready(function()
     view_records();
     insert_project();
     delete_project();
-    update_project();
+    edit_project();
     add_task();
     delete_task();
     get_task();
@@ -36,7 +36,7 @@ function insert_project(){
 }
 
 // Update Project Name 
-function update_project(){
+function edit_project(){
     $(document).on('click','#btn_edit_project',function(){
         var ProjectId = $(this).attr('data-id1');
         var str = "Project"+ProjectId;
@@ -78,7 +78,9 @@ function update_project(){
 function delete_project(){
     $(document).on('click','#btn_delete_project',function(){
         var Project_Id = $(this).attr('data-id1');
-        $.ajax({
+
+        
+            $.ajax({
                 url: 'deleteproject.php',
                 method: 'post',
                 data:{PId:Project_Id},
@@ -87,9 +89,11 @@ function delete_project(){
                         view_records();
                         console.log('success');
                 }
-            })
+            });
             console.log('good')
-    })
+
+        
+            });
 }
 
 // Insert Project in the Database
@@ -120,29 +124,52 @@ function add_task(){
     })
  }
 
-
+var TaskId;
 function delete_task(){
     $(document).on('click','#btn_delete_task',function(){
-        
-        console.log('pushed btn_delete_task ');
-
-        var TaskId = $(this).attr('data-id');
-
+        TaskId = $(this).attr('data-id');
         console.log('TaskId = ' + TaskId);
         
-        if(TaskId != ""){
+        $(document).on('click','#btn_delete_task_modal',function()
+        {
+                    $.ajax({
+                        url : 'deletetask.php',
+                        method: 'post',
+                        data:{TId:TaskId},
+                        success: function(data){
+                            $('#project').html(data.html);
+                            view_records();
+                        }
+                    })
+                    
+        })
+        
+    
+})
+}
+
+//Delete Task
+function edit_task(){
+    $(document).on('click','#btn_edit_task_modal',function(){
+        var TaskId = $('#Up_Task_ID').val();
+        var TaskContent = $('#Up_Task_Content').val();
+
+        if(TaskContent !=''){
             $.ajax(
-                 {
-                     url : 'deletetask.php',
-                     method: 'post',
-                     data:{TId:TaskId},
-                     success: function(data){
-                         $('#project').html(data.html);
-                         view_records();
-                     }
-                 })
-        }
-    })
+                {
+                    url: 'edittask.php',
+                    method: 'post',
+                    data:{TId:TaskId,TContent:TaskContent},
+                    success: function(data){
+                            $('#project').html(data.html);
+                            $('#up-message').html(data);
+                            $('#update').modal('show');
+                            view_records();
+                        }
+                    
+                })
+                }
+   })
 }
 
 // Display Record
@@ -163,32 +190,8 @@ function view_records()
         })
 }
 
-function edit_task(){
-    $(document).on('click','#btn_edit_task_modal',function(){
-        var TaskId = $('#Up_Task_ID').val();
-        var TaskContent = $('#Up_Task_Content').val();
-        
-        console.log(TaskContent + ' ' + TaskId);
 
-        if(TaskContent !=''){
-            $.ajax(
-                {
-                    url: 'edittask.php',
-                    method: 'post',
-                    data:{TId:TaskId,TContent:TaskContent},
-                    success: function(data){
-                            $('#project').html(data.html);
-                            $('#up-message').html(data);
-                            $('#update').modal('show');
-                            view_records();
-                        }
-                    
-                })
-                }
-   })
-}
-
-//Get Particular Record
+//Get Task
 function get_task(){
     $(document).on('click','#btn_edit_task',function(){
         

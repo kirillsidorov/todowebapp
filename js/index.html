@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+<form name="search">
+    <input type="text" name="key" placeholder="Введите ключ"></input>
+    <input type="button" name="print" value="Печать" />
+</form>
+<div id="printBlock"></div>
+<script>
+var keyBox = document.search.key;
+ 
+// обработчик изменения текста
+function onchange(e){
+    // получаем элемент printBlock
+    var printBlock = document.getElementById("printBlock");
+    // получаем новое значение
+    var val = e.target.value;
+    // установка значения
+    printBlock.textContent = val;
+}
+// обработка потери фокуса
+function onblur(e){
+     
+    // получаем его значение и обрезаем все пробелы
+    var text = keyBox.value.trim();
+    if(text==="")
+        keyBox.style.borderColor = "red";
+    else
+        keyBox.style.borderColor = "green";
+}
+// получение фокуса
+function onfocus(e){
+     
+    // установка цвета границ поля
+    keyBox.style.borderColor = "blue";
+}
+keyBox.addEventListener("change", onchange);
+keyBox.addEventListener("blur", onblur);
+keyBox.addEventListener("focus", onfocus);
+</script>
+</body>
+</html>

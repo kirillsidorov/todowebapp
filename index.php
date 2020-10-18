@@ -24,19 +24,12 @@
         </div>
     </header>
 
-    <div class="container" id="project" style="margin-top: 30px">
-
-    </div>
-
-
-
+    <div class="container" id="project" style="margin-top: 30px"></div>
     <footer>
-        <div class="jumbotron text-center" style="margin-bottom:0;background-color: aliceblue;">
-
-
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddNewProject">
-                         Add New Project
-                    </button>
+        <div class="jumbotron text-center" style="margin-bottom:0;">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddNewProject">
+             Add New Project
+           </button>
         </div>
     </footer>
 
@@ -62,6 +55,24 @@
       </div>
     </div>
 
+<!--Delete Task Modal-->
+<div class="modal" id="delete_task">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="text-dark">Delete Task?</h3>
+          </div>
+          <div class="modal-body">
+            <p id="up-message" class="text-dark"></p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="btn_delete_task_modal">Delete Now</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- The Modal Add Project-->
 <div class="modal" id="AddNewProject">
   <div class="modal-dialog">
