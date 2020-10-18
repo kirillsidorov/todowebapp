@@ -102,7 +102,7 @@
                                 <button class="btn btn-success" id="btn_edit_project" data-id1='.$row['Id'].' data-toggle="modal" data-target="#EditProject"><span class="fa fa-edit"></button>
                             </div>
                             <div class="col-1">
-                                <button class="btn btn-danger" id="btn_delete_project" data-id1='.$row['Id'].'><span class="fa fa-trash"></button>  
+                                <button class="btn btn-danger" id="btn_delete_project" data-id1='.$row['Id'].' data-toggle="modal" data-target="#delete_project"><span class="fa fa-trash"></button>  
                             </div>     
                         </div>
                     </div>
