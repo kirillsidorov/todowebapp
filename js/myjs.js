@@ -9,6 +9,7 @@ $(document).ready(function()
     get_task();
     edit_task();
     status_task();
+    
 })
 
 // Insert Project in the Database
@@ -102,7 +103,7 @@ function delete_project(){
             });
 }
 
-// Insert Project in the Database
+// Insert Task 
 function add_task(){
     $(document).on('click','#btn_add_task',function(){
         
@@ -130,6 +131,7 @@ function add_task(){
     })
  }
 
+//Delete Task
 var TaskId;
 function delete_task(){
     $(document).on('click','#btn_delete_task',function(){
@@ -155,31 +157,37 @@ function delete_task(){
 })
 }
 
-//Delete Task
+//Edit Task
 function edit_task(){
     $(document).on('click','#btn_edit_task_modal',function(){
         var TaskId = $('#Up_Task_ID').val();
         var TaskContent = $('#Up_Task_Content').val();
+        var TaskPriority = $('#priority').val();
+        var TaskDeadline = $('#datepicker').val();
+
+        //console.log(TaskId + " - " +TaskContent + " - " + TaskPriority +" - " + TaskDeadline);
 
         if(TaskContent !=''){
-            $.ajax(
-                {
+            $.ajax({
                     url: 'edittask.php',
                     method: 'post',
-                    data:{TId:TaskId,TContent:TaskContent},
-                    success: function(data){
+                    data:{TId:TaskId,
+                        TContent:TaskContent,
+                        TPriority:TaskPriority,
+                        TDeadline:TaskDeadline},
+                        success: function(data){
                             $('#project').html(data.html);
                             $('#up-message').html(data);
                             $('#update').modal('show');
                             view_records();
                         }
                     
-                })
-                }
+                    })
+        }
    })
 }
 
-// Display Record
+// Display All projects and Tasks
 function view_records()
 {
     $.ajax(
@@ -203,7 +211,7 @@ function get_task(){
     $(document).on('click','#btn_edit_task',function(){
         
         var ID = $(this).attr('data-id');
-        console.log(ID);
+        //console.log(ID);
         
         $.ajax(
             {
@@ -215,6 +223,8 @@ function get_task(){
                 {
                    $('#Up_Task_ID').val(data[0]);
                    $('#Up_Task_Content').val(data[1]);
+                   $('#datepicker').val(data[2]);
+                   $('#priority').val(data[3]);
                    $('#update').modal('show');
                    
                 }
@@ -223,6 +233,7 @@ function get_task(){
     })
 }
 
+//Change task status
 function status_task(){
     $(document).on('click','#chb',function(){
         var status = $(this).attr('job');
@@ -259,6 +270,8 @@ function status_task(){
         }
     })
 }
+
+
 
 
 

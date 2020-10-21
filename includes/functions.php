@@ -126,11 +126,12 @@
 
 function get_tasks_by_projectId($id){
     global $con;
-    $html = '';
+    $html = '<div class="sortable">';
     $sql = 'select * from `tasks` WHERE ProjectId = '.$id;
     $res = mysqli_query($con,$sql);
     while($row1=mysqli_fetch_assoc($res)){
-            $html.= '<div class="container border rounded bg-light" style="border-bottom: 1px; margin-top: 10px;">
+            $html.= '
+            <div class="container border rounded bg-light" style="border-bottom: 1px; margin-top: 10px;">
                          <div class="row">
                             <div class="col-1" >
                                 <div class="form-check-inline">
@@ -158,6 +159,7 @@ function get_tasks_by_projectId($id){
                         </div>
                     </div>';
             }
+            $html .='</div>'; 
     return $html;
 }
 
@@ -195,20 +197,30 @@ function insert_task_by_projectId(){
         {
             $json = array(
                 $row['Id'],
-                $row['Content']
+                $row['Content'],
+                $row['Deadline'],
+                $row['Priority']
             );
+        }
+        if($json[2] != null){
+            $date = date("m/d/Y", strtotime($json[2]));
+            $json[2]= $date;
         }
         echo json_encode($json);
     }
 
-    // Update Function
+    // Update Task
     function EditTask()
     {
         global $con;
         $TaskId = $_POST['TId'];
         $TaskContent =$_POST['TContent'];
+        $TaskPriority = $_POST['TPriority'];
+        $TaskDeadline =$_POST['TDeadline']; //10/23/2020
+        $Ttime = date('Y-m-d', strtotime($TaskDeadline));
 
-        $query = "update tasks set `Content` = '$TaskContent' where Id='$TaskId '";
+        $query = "update tasks set `Content` = '$TaskContent' , `Deadline`='$Ttime', `Priority`='$TaskPriority' where Id='$TaskId '";
+        // `Deadline`='$TaskDeadline',
         $result = mysqli_query($con,$query);
         if($result)
         {

@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/myjs.js"></script>
-    <title></title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    <title>TODO Web App</title>
+    
 </head>
 <body>
     <header>
@@ -25,6 +25,7 @@
     </header>
 
     <div class="container" id="project" style="margin-top: 30px"></div>
+
     <footer>
         <div class="jumbotron text-center" style="margin-bottom:0;">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddNewProject">
@@ -33,7 +34,8 @@
         </div>
     </footer>
 
-<!--Update Task Modal-->
+
+    <!--Update Task Modal-->
 <div class="modal" id="update">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -45,6 +47,14 @@
             <form>
               <input type="hidden" class="form-control my-2" placeholder="Task" id="Up_Task_ID">
               <input type="text" class="form-control my-2" placeholder="Task Content" id="Up_Task_Content">
+              <h3 class="text-dark">Priority</h3>
+              <select name="Priority" id="priority">
+                <option value="2">High</option>
+                <option value="1">Medium</option>
+                <option value="0">Low</option>
+              </select>
+              <h3 class="text-dark">Deadline</h3>
+              <input type="text" class="form-control my-2" id="datepicker" name="deadline">
             </form>
           </div>
           <div class="modal-footer">
@@ -152,7 +162,15 @@
     </div>
   </div>
 </div>
-
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/myjs.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker({ minDate: 0, maxDate: "+12M" });
+  } );
+  </script>
 <script>
 // Disable form submissions if there are invalid fields
     (function() {
@@ -173,5 +191,6 @@
     }, false);
     })();
 </script>
+
 </body>
 </html>
