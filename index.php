@@ -34,6 +34,35 @@
         </div>
     </footer>
 
+    <!--Create Task Modal-->
+    <div class="modal" id="create">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="text-dark">Create Task</h3>
+          </div>
+          <div class="modal-body">
+          <p id="up-message" class="text-dark"></p>
+            <form>
+              <input type="hidden" class="form-control my-2" placeholder="Task" id="Create_Project_ID">
+              <input type="text" class="form-control my-2" placeholder="Task Content" id="Create_Task_Content">
+              <h3 class="text-dark">Priority</h3>
+              <select name="Priority" id="priority1">
+                <option value="2">High</option>
+                <option value="1">Medium</option>
+                <option value="0">Low</option>
+              </select>
+              <h3 class="text-dark">Deadline</h3>
+              <input type="text" class="form-control my-2" id="datepicker1" name="deadline">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="btn_add_task_modal">Create Now</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--Update Task Modal-->
 <div class="modal" id="update">
@@ -169,6 +198,8 @@
 <script>
   $( function() {
     $( "#datepicker" ).datepicker({ minDate: 0, maxDate: "+12M" });
+    $( "#datepicker1" ).datepicker({ minDate: 0, maxDate: "+12M" });
+    
   } );
   </script>
 <script>

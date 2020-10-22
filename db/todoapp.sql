@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 14 2020 г., 21:07
+-- Время создания: Окт 22 2020 г., 01:11
 -- Версия сервера: 10.3.22-MariaDB
 -- Версия PHP: 7.1.33
 
@@ -38,9 +38,8 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`Id`, `Name`, `CreatedAt`) VALUES
-(1, 'Project1', NULL),
-(2, 'Project2', NULL),
-(3, 'Project3', NULL);
+(19, 'Project1', NULL),
+(21, 'Project2', NULL);
 
 -- --------------------------------------------------------
 
@@ -52,21 +51,23 @@ CREATE TABLE `tasks` (
   `Id` int(11) NOT NULL,
   `Content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ProjectId` int(11) DEFAULT NULL,
-  `CreatedAt` date DEFAULT NULL,
-  `CheckStatus` tinyint(1) DEFAULT NULL
+  `Deadline` date DEFAULT NULL,
+  `CheckStatus` tinyint(1) DEFAULT NULL,
+  `Priority` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `tasks`
 --
 
-INSERT INTO `tasks` (`Id`, `Content`, `ProjectId`, `CreatedAt`, `CheckStatus`) VALUES
-(1, 'Задача 1', 1, NULL, 1),
-(2, 'Задача 2', 1, NULL, 1),
-(5, 'Задача 1', 2, NULL, 1),
-(6, 'Задача 1', 3, NULL, 1),
-(7, 'Задача 2', 3, NULL, 0),
-(8, 'Задача 2', 3, NULL, 0);
+INSERT INTO `tasks` (`Id`, `Content`, `ProjectId`, `Deadline`, `CheckStatus`, `Priority`) VALUES
+(78, 'Task4', 19, '2020-10-26', 1, 1),
+(82, 'Task1', 21, '2020-10-23', 1, 2),
+(83, 'Task2', 21, '2020-10-27', 0, 0),
+(84, 'asas', 21, '2020-10-30', 1, 1),
+(85, 'ghhh', 19, '2020-10-30', 1, 2),
+(86, 'dddddddddd', 19, '2020-10-23', 1, 2),
+(87, 'aaaaaaaaaa', 19, '2020-10-23', 1, 2);
 
 --
 -- Индексы сохранённых таблиц
@@ -93,13 +94,13 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT для таблицы `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

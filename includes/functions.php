@@ -109,9 +109,9 @@
                     <div class="container" style="margin-top: 5px;margin-bottom:5px">
                         <div class="row">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Some task.." id="form-'.$row['Id'].'" data-id1='.$row['Id'].' required>
+                                <!--<input type="text" class="form-control" placeholder="Some task.." id="form-'.$row['Id'].'" data-id1='.$row['Id'].' required>-->
                                 <div class="input-group-append">
-                                    <button class="btn btn-success" type="button" id="btn_add_task" data-id1='.$row['Id'].' >Add Task</button>
+                                    <button class="btn btn-success" type="button" id="btn_add_task" data-id1='.$row['Id'].' data-toggle="modal" data-target="#create" >Add Task</button>
                                 </div>
                             </div>
                         </div>
@@ -167,8 +167,11 @@ function insert_task_by_projectId(){
     global $con;
     $Project_Id = $_POST['PId'];
     $Task_Content = $_POST['TContent'];
+    $TaskPriority = $_POST['TPriority'];
+    $TaskDeadline =$_POST['TDeadline']; //10/23/2020
+    $Ttime = date('Y-m-d', strtotime($TaskDeadline));
 
-    $query = "insert into `tasks` (`Content`, `ProjectId`, `CheckStatus`) values ('$Task_Content', '$Project_Id', '1')";
+    $query = "insert into `tasks` (`Content`, `ProjectId`, `CheckStatus`, `Priority`, `Deadline`) values ('$Task_Content', '$Project_Id', '1', '$TaskPriority', '$Ttime')";
 
     if($Project_Id != "" || $Task_Content != ""){
         $result = mysqli_query($con,$query);

@@ -9,7 +9,7 @@ $(document).ready(function()
     get_task();
     edit_task();
     status_task();
-    
+    add_task_btn();
 })
 
 // Insert Project in the Database
@@ -103,59 +103,46 @@ function delete_project(){
             });
 }
 
-// Insert Task 
-function add_task(){
-    $(document).on('click','#btn_add_task',function(){
-        
-        var ProjectId = $(this).attr('data-id1');
-        
-        //console.log('ProjectId ' + ProjectId);
-        var f = '#form-' + ProjectId; 
-        var TaskContent = $(f).val();
-        
-        //console.log('Content ' + TaskContent);
-        
-         if(TaskContent != ""){
-            $.ajax(
-                 {
-                     url : 'inserttask.php',
-                     method: 'post',
-                     data:{TContent:TaskContent,
-                            PId:ProjectId},
-                     success: function(data){
-                         $('#project').html(data);
-                         view_records();
-                     }
-                 })
-        }
-    })
- }
 
-//Delete Task
-var TaskId;
-function delete_task(){
-    $(document).on('click','#btn_delete_task',function(){
-        TaskId = $(this).attr('data-id');
-        console.log('TaskId = ' + TaskId);
-        
-        $(document).on('click','#btn_delete_task_modal',function()
-        {
-                    $.ajax({
-                        url : 'deletetask.php',
+
+var ProjectId;
+function add_task_btn(){
+    $(document).on('click','#btn_add_task',function(){
+        ProjectId = $(this).attr('data-id1');
+        console.log(ProjectId);
+    });
+}
+
+// Insert Task 
+
+function add_task(){
+        $(document).on('click','#btn_add_task_modal',function(){
+
+            //var ProjectIdModal = $('#Create_Project_ID').val();
+            var TaskContent = $('#Create_Task_Content').val();
+            var TaskPriority = $('#priority1').val();
+            var TaskDeadline = $('#datepicker1').val();
+            console.log(" ProjectId -" + ProjectId + " TaskContent - " +TaskContent + " - " + TaskPriority +" - " + TaskDeadline);
+
+            if(TaskContent != ""){
+                $.ajax({
+                        url : 'inserttask.php',
                         method: 'post',
-                        data:{TId:TaskId},
+                        data:{PId:ProjectId,
+                            TContent:TaskContent,
+                            TPriority:TaskPriority,
+                            TDeadline:TaskDeadline},
                         success: function(data){
                             $('#project').html(data.html);
-                            $('#delete_task').modal('hide');
+                            $('#Create_Project_ID').val('');
+                            $('input[type="text"],textarea').val('');
+                            $('#create').modal('hide');
                             view_records();
                         }
                     })
-                    
+            }
         })
-        
-    
-})
-}
+    }
 
 //Edit Task
 function edit_task(){
@@ -185,6 +172,32 @@ function edit_task(){
                     })
         }
    })
+}
+
+//Delete Task
+var TaskId;
+function delete_task(){
+    $(document).on('click','#btn_delete_task',function(){
+        TaskId = $(this).attr('data-id');
+        console.log('TaskId = ' + TaskId);
+        
+        $(document).on('click','#btn_delete_task_modal',function()
+        {
+                    $.ajax({
+                        url : 'deletetask.php',
+                        method: 'post',
+                        data:{TId:TaskId},
+                        success: function(data){
+                            $('#project').html(data.html);
+                            $('#delete_task').modal('hide');
+                            view_records();
+                        }
+                    })
+                    
+        })
+        
+    
+})
 }
 
 // Display All projects and Tasks
